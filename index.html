@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Courts of Heaven — Prophetic Decree Tool</title>
+<style>
+  :root{--forest:#0a2518;--moss:#0d3020;--eucalyptus:#4F8F75;--sage:#9FC3B2;--pale:#E7F1EC;--gold:#c9a84c}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{min-height:100vh;background:var(--forest);font-family:Georgia,serif;color:var(--pale);overflow-x:hidden}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes float{0%,100%{transform:translateY(0) scale(1);opacity:.25}50%{transform:translateY(-18px) scale(1.5);opacity:.6}}
+  @keyframes breathe{0%,100%{box-shadow:0 0 0 0 rgba(79,143,117,.4)}50%{box-shadow:0 0 0 14px rgba(79,143,117,0)}}
+  @keyframes reveal{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @keyframes countUp{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}
+  .particle{position:fixed;width:2px;height:2px;border-radius:50%;background:radial-gradient(circle,var(--gold),var(--eucalyptus));pointer-events:none;z-index:0}
+  .wrap{max-width:680px;margin:0 auto;padding:60px 22px 100px;position:relative;z-index:1;animation:fadeUp .9s ease forwards}
+  .handle{font-family:Arial,sans-serif;font-size:9px;letter-spacing:.4em;color:var(--eucalyptus);text-transform:uppercase;font-weight:700;text-align:center;margin-bottom:24px}
+  h1{font-size:clamp(34px,6vw,54px);color:var(--pale);font-weight:700;line-height:1.05;letter-spacing:-.02em;text-align:center;margin-bottom:10px}
+  h2{font-size:clamp(15px,3vw,21px);color:var(--eucalyptus);font-weight:400;font-style:italic;letter-spacing:.07em;text-align:center;margin-bottom:28px}
+  .rule{width:36px;height:1px;background:var(--eucalyptus);margin:0 auto 24px}
+  .sub{font-family:Arial,sans-serif;font-size:14px;color:var(--sage);line-height:1.7;text-align:center;max-width:420px;margin:0 auto 52px}
+  .spinner-wrap{text-align:center;padding:48px}
+  .spinner{display:inline-block;width:30px;height:30px;border:2px solid rgba(79,143,117,.2);border-top-color:var(--eucalyptus);border-radius:50%;animation:spin .8s linear infinite;margin-bottom:16px}
+  .spinner-txt{font-family:Arial,sans-serif;font-size:11px;color:var(--sage);letter-spacing:.2em;text-transform:uppercase}
+  .err-box{background:rgba(79,143,117,.08);border:1px solid rgba(79,143,117,.25);border-radius:12px;padding:24px;text-align:center;font-family:Arial,sans-serif;font-size:13px;color:var(--sage);line-height:1.7}
+  .counter-bar{display:flex;justify-content:center;align-items:center;gap:14px;margin-bottom:44px}
+  .counter-pill{background:var(--moss);border:1px solid rgba(79,143,117,.2);border-radius:30px;padding:9px 22px;font-family:Arial,sans-serif;font-size:12px;color:var(--sage);display:flex;align-items:center;gap:10px}
+  .counter-num{color:var(--eucalyptus);font-weight:700;font-size:17px}
+  .reset-btn{background:transparent;border:1px solid rgba(79,143,117,.25);border-radius:20px;padding:7px 15px;font-family:Arial,sans-serif;font-size:10px;color:var(--sage);cursor:pointer;transition:all .2s;letter-spacing:.12em;text-transform:uppercase}
+  .reset-btn:hover{border-color:var(--eucalyptus);color:var(--eucalyptus)}
+  .cat-label{font-family:Arial,sans-serif;font-size:9px;letter-spacing:.35em;color:var(--eucalyptus);text-transform:uppercase;font-weight:700;margin-bottom:16px}
+  .categories{display:grid;grid-template-columns:repeat(auto-fill,minmax(138px,1fr));gap:10px;margin-bottom:28px}
+  .cat-btn{background:var(--moss);border:1px solid rgba(79,143,117,.18);border-radius:11px;padding:15px 12px;font-family:Arial,sans-serif;font-size:12px;color:var(--sage);cursor:pointer;transition:all .2s;text-align:center;line-height:1.3;font-weight:500}
+  .cat-btn:hover{border-color:var(--eucalyptus);color:var(--pale);transform:translateY(-2px)}
+  .cat-btn.active{background:var(--eucalyptus);color:var(--forest);border-color:var(--eucalyptus);font-weight:700;animation:breathe 2.2s infinite}
+  .cat-icon{font-size:19px;display:block;margin-bottom:7px}
+  .file-btn{width:100%;padding:18px;background:var(--eucalyptus);color:var(--forest);border:none;border-radius:11px;font-family:Arial,sans-serif;font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .2s;margin-bottom:32px;display:flex;align-items:center;justify-content:center;gap:10px}
+  .file-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 10px 32px rgba(79,143,117,.4)}
+  .file-btn:disabled{opacity:.35;cursor:not-allowed}
+  .output{background:var(--pale);border-radius:14px;overflow:hidden;border:1px solid rgba(79,143,117,.18);display:none}
+  .output.visible{display:block;animation:reveal .5s ease forwards}
+  .output-bar{background:var(--forest);padding:16px 26px;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--eucalyptus);flex-wrap:wrap;gap:10px}
+  .output-label{font-family:Arial,sans-serif;font-size:9px;letter-spacing:.35em;color:var(--pale);text-transform:uppercase;font-weight:700}
+  .output-actions{display:flex;gap:8px}
+  .copy-btn{background:transparent;border:1px solid var(--eucalyptus);border-radius:6px;color:var(--eucalyptus);font-family:Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:7px 15px;cursor:pointer;transition:all .2s}
+  .copy-btn:hover{background:var(--eucalyptus);color:var(--forest)}
+  .again-btn{background:rgba(79,143,117,.12);border:1px solid rgba(79,143,117,.25);border-radius:6px;color:var(--sage);font-family:Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:7px 15px;cursor:pointer;transition:all .2s}
+  .again-btn:hover{background:rgba(79,143,117,.25);color:var(--pale)}
+  .output-body{padding:36px 32px}
+  .section{margin-bottom:30px}
+  .sec-label{font-family:Arial,sans-serif;font-size:8px;letter-spacing:.4em;color:var(--eucalyptus);text-transform:uppercase;font-weight:700;margin-bottom:11px}
+  .sec-text{font-family:Arial,sans-serif;font-size:15px;color:#1a3d2b;line-height:1.85}
+  .sec-text.scripture{font-family:Georgia,serif;font-style:italic;color:#1f4a35;font-size:15px}
+  .sec-text.decree{font-size:17px;font-weight:600;color:#0a2518;border-left:3px solid var(--eucalyptus);padding-left:20px;line-height:1.9}
+  .sec-text.verdict{font-weight:700;color:#0a2518;font-size:15px}
+  .out-footer{margin-top:34px;padding-top:24px;border-top:1px solid rgba(79,143,117,.2);text-align:center}
+  .footer-tag{font-style:italic;font-size:13px;color:var(--eucalyptus);line-height:1.75;margin-bottom:12px;font-family:Georgia,serif}
+  .footer-handle{font-family:Arial,sans-serif;font-size:9px;letter-spacing:.3em;color:var(--sage);text-transform:uppercase;opacity:.65}
+  .bottom{text-align:center;margin-top:52px;padding-top:32px;border-top:1px solid rgba(79,143,117,.15)}
+  .bottom p{font-family:Arial,sans-serif;font-size:12px;color:var(--sage);opacity:.6;line-height:1.65;margin-bottom:12px}
+  .bottom .sig{font-family:Arial,sans-serif;font-size:10px;letter-spacing:.25em;color:var(--eucalyptus);text-transform:uppercase;font-weight:700;opacity:.75}
+  @media(max-width:480px){.categories{grid-template-columns:repeat(2,1fr)}.output-body{padding:24px 20px}.output-actions{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<script>
+for(let i=0;i<12;i++){const p=document.createElement('div');p.className='particle';p.style.cssText=`left:${5+i*8}%;top:${10+(i%5)*18}%;animation:float ${3+i*.2}s ease-in-out infinite;animation-delay:${i*.3}s`;document.body.appendChild(p)}
+</script>
+<div class="wrap">
+  <p class="handle">@theonechrist · onepropheticdecree.substack.com</p>
+  <h1>Courts of Heaven</h1>
+  <h2>Prophetic Decree Generator</h2>
+  <div class="rule"></div>
+  <p class="sub">Select the legal matter. File as many times as you need — every filing draws a fresh decree from the vault.</p>
+
+  <div id="loadingState" class="spinner-wrap">
+    <div class="spinner"></div>
+    <div class="spinner-txt">Loading decree vault...</div>
+  </div>
+
+  <div id="appState" style="display:none">
+    <div class="counter-bar">
+      <div class="counter-pill">🔥 Decrees filed today: <span class="counter-num" id="countNum">0</span></div>
+      <button class="reset-btn" onclick="resetCount()">Reset</button>
+    </div>
+
+    <p class="cat-label">Choose the Legal Matter</p>
+    <div class="categories">
+      <button class="cat-btn" data-key="generational" onclick="selectCat(this)"><span class="cat-icon">🩸</span>Generational Bondage</button>
+      <button class="cat-btn" data-key="witchcraft" onclick="selectCat(this)"><span class="cat-icon">🔥</span>Witchcraft &amp; Assignment</button>
+      <button class="cat-btn" data-key="finances" onclick="selectCat(this)"><span class="cat-icon">⚖️</span>Financial Delay</button>
+      <button class="cat-btn" data-key="marriage" onclick="selectCat(this)"><span class="cat-icon">🤝</span>Marriage &amp; Covenant</button>
+      <button class="cat-btn" data-key="health" onclick="selectCat(this)"><span class="cat-icon">🌿</span>Health &amp; Body</button>
+      <button class="cat-btn" data-key="identity" onclick="selectCat(this)"><span class="cat-icon">👑</span>Identity &amp; Calling</button>
+      <button class="cat-btn" data-key="marketplace" onclick="selectCat(this)"><span class="cat-icon">🏛️</span>Marketplace Authority</button>
+      <button class="cat-btn" data-key="delay" onclick="selectCat(this)"><span class="cat-icon">⏳</span>Breakthrough &amp; Delay</button>
+      <button class="cat-btn" data-key="children" onclick="selectCat(this)"><span class="cat-icon">🌱</span>Children &amp; Seed</button>
+      <button class="cat-btn" data-key="fear" onclick="selectCat(this)"><span class="cat-icon">🛡️</span>Fear &amp; Anxiety</button>
+      <button class="cat-btn" data-key="purpose" onclick="selectCat(this)"><span class="cat-icon">📜</span>Purpose &amp; Assignment</button>
+      <button class="cat-btn" data-key="restoration" onclick="selectCat(this)"><span class="cat-icon">✨</span>Restoration &amp; Return</button>
+    </div>
+
+    <button class="file-btn" id="fileBtn" disabled onclick="fileDecree()">Select a Legal Matter to File</button>
+
+    <div class="output" id="output">
+      <div class="output-bar">
+        <span class="output-label">Covenant Decree · Filed</span>
+        <div class="output-actions">
+          <button class="again-btn" onclick="fileDecree()">File Again ↻</button>
+          <button class="copy-btn" id="copyBtn" onclick="copyDecree()">Copy</button>
+        </div>
+      </div>
+      <div class="output-body" id="outputBody"></div>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <p>Speak the decree aloud for 7 days. Not when you feel it.<br>These are legal filings — not affirmations.</p>
+    <p class="sig">What God Cannot Do Does Not Exist</p>
+  </div>
+</div>
+
+<script>
+const JSON_URL='https://raw.githubusercontent.com/noah28-prog/decree-bank/main/decrees%20GitHub%20JSON%20file.json';
+let BANK={},selectedKey=null,currentText='',used={};
+
+async function loadBank(){
+  try{
+    const res=await fetch(JSON_URL);
+    if(!res.ok)throw new Error();
+    BANK=await res.json();
+    document.getElementById('loadingState').style.display='none';
+    document.getElementById('appState').style.display='block';
+    loadCount();
+  }catch(e){
+    document.getElementById('loadingState').innerHTML=`<div class="err-box">Unable to load the decree vault right now.<br><small style="opacity:.6">Check your connection and refresh.</small><br><br><button class="reset-btn" onclick="loadBank()" style="margin-top:8px">Try Again</button></div>`;
+  }
+}
+
+function loadCount(){
+  const today=new Date().toDateString();
+  const s=JSON.parse(localStorage.getItem('coh_v3')||'{}');
+  document.getElementById('countNum').textContent=s.date===today?s.count:0;
+}
+function incrementCount(){
+  const today=new Date().toDateString();
+  const s=JSON.parse(localStorage.getItem('coh_v3')||'{}');
+  const count=(s.date===today?s.count:0)+1;
+  localStorage.setItem('coh_v3',JSON.stringify({date:today,count}));
+  const el=document.getElementById('countNum');
+  el.textContent=count;
+  el.style.animation='none';el.offsetHeight;el.style.animation='countUp .3s ease';
+}
+function resetCount(){
+  localStorage.setItem('coh_v3',JSON.stringify({date:new Date().toDateString(),count:0}));
+  document.getElementById('countNum').textContent='0';
+  used={};
+}
+function selectCat(btn){
+  document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  selectedKey=btn.dataset.key;
+  const fb=document.getElementById('fileBtn');
+  fb.disabled=false;fb.textContent='File the Decree';
+  document.getElementById('output').classList.remove('visible');
+}
+function getDecree(key){
+  const pool=BANK[key]||[];
+  if(!pool.length)return null;
+  if(!used[key])used[key]=[];
+  if(used[key].length>=pool.length)used[key]=[];
+  const avail=pool.map((_,i)=>i).filter(i=>!used[key].includes(i));
+  const pick=avail[Math.floor(Math.random()*avail.length)];
+  used[key].push(pick);
+  return pool[pick];
+}
+function fileDecree(){
+  if(!selectedKey)return;
+  const d=getDecree(selectedKey);
+  if(!d){alert('More decrees coming soon. Check back after the next vault update.');return;}
+  currentText=['LEGAL POSITION\n'+d.position,'\nSCRIPTURE ANCHOR\n'+d.scripture,'\nTHE DECREE\n'+d.decree,'\nTHE VERDICT\n'+d.verdict,'\nThe filing does not expire. The verdict stands. The blood does not lose its legal power.','@theonechrist | onepropheticdecree.substack.com'].join('\n');
+  document.getElementById('outputBody').innerHTML=`
+    <div class="section"><div class="sec-label">Legal Position</div><div class="sec-text">${d.position}</div></div>
+    <div class="section"><div class="sec-label">Scripture Anchor</div><div class="sec-text scripture">${d.scripture}</div></div>
+    <div class="section"><div class="sec-label">The Decree</div><div class="sec-text decree">${d.decree}</div></div>
+    <div class="section"><div class="sec-label">The Verdict</div><div class="sec-text verdict">${d.verdict}</div></div>
+    <div class="out-footer">
+      <p class="footer-tag">The filing does not expire. The verdict stands.<br>The blood does not lose its legal power.</p>
+      <p class="footer-handle">@theonechrist</p>
+    </div>`;
+  const out=document.getElementById('output');
+  out.classList.add('visible');
+  incrementCount();
+  document.getElementById('copyBtn').textContent='Copy';
+  setTimeout(()=>out.scrollIntoView({behavior:'smooth',block:'start'}),100);
+}
+function copyDecree(){
+  navigator.clipboard.writeText(currentText).then(()=>{
+    const btn=document.getElementById('copyBtn');
+    btn.textContent='✓ Copied';
+    setTimeout(()=>btn.textContent='Copy',2000);
+  });
+}
+loadBank();
+</script>
+</body>
+</html>
