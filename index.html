@@ -13,8 +13,28 @@
   @keyframes breathe{0%,100%{box-shadow:0 0 0 0 rgba(79,143,117,.4)}50%{box-shadow:0 0 0 14px rgba(79,143,117,0)}}
   @keyframes reveal{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
   @keyframes spin{to{transform:rotate(360deg)}}
+  @keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
   @keyframes countUp{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}
   .particle{position:fixed;width:2px;height:2px;border-radius:50%;background:radial-gradient(circle,var(--gold),var(--eucalyptus));pointer-events:none;z-index:0}
+
+  /* GATE */
+  .gate{position:fixed;inset:0;background:var(--forest);z-index:100;display:flex;align-items:center;justify-content:center;padding:24px;animation:fadeUp .8s ease forwards}
+  .gate-card{background:var(--moss);border:1px solid rgba(79,143,117,.2);border-radius:16px;padding:48px 36px;max-width:420px;width:100%;text-align:center}
+  .gate-handle{font-family:Arial,sans-serif;font-size:9px;letter-spacing:.4em;color:var(--eucalyptus);text-transform:uppercase;font-weight:700;margin-bottom:24px}
+  .gate-title{font-size:clamp(28px,5vw,38px);color:var(--pale);font-weight:700;line-height:1.1;margin-bottom:10px;letter-spacing:-.02em}
+  .gate-sub{font-family:Arial,sans-serif;font-size:13px;color:var(--sage);line-height:1.65;margin-bottom:36px}
+  .gate-rule{width:32px;height:1px;background:var(--eucalyptus);margin:0 auto 28px}
+  .gate-label{font-family:Arial,sans-serif;font-size:9px;letter-spacing:.3em;color:var(--eucalyptus);text-transform:uppercase;font-weight:700;margin-bottom:12px;display:block;text-align:left}
+  .gate-input{width:100%;background:rgba(10,37,24,.8);border:1px solid rgba(79,143,117,.3);border-radius:8px;color:var(--pale);font-family:Arial,sans-serif;font-size:18px;letter-spacing:.15em;padding:15px 18px;outline:none;transition:border-color .2s;text-align:center;margin-bottom:16px}
+  .gate-input:focus{border-color:var(--eucalyptus)}
+  .gate-input.error{animation:shake .4s ease;border-color:#c0392b}
+  .gate-btn{width:100%;padding:15px;background:var(--eucalyptus);color:var(--forest);border:none;border-radius:8px;font-family:Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .2s;margin-bottom:14px}
+  .gate-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(79,143,117,.4)}
+  .gate-err{font-family:Arial,sans-serif;font-size:12px;color:#e74c3c;min-height:18px;margin-bottom:8px}
+  .gate-footer{font-family:Arial,sans-serif;font-size:11px;color:var(--sage);opacity:.5;line-height:1.6;margin-top:24px}
+  .gate-link{color:var(--eucalyptus);text-decoration:none;font-weight:600}
+
+  /* APP */
   .wrap{max-width:680px;margin:0 auto;padding:60px 22px 100px;position:relative;z-index:1;animation:fadeUp .9s ease forwards}
   .handle{font-family:Arial,sans-serif;font-size:9px;letter-spacing:.4em;color:var(--eucalyptus);text-transform:uppercase;font-weight:700;text-align:center;margin-bottom:24px}
   h1{font-size:clamp(34px,6vw,54px);color:var(--pale);font-weight:700;line-height:1.05;letter-spacing:-.02em;text-align:center;margin-bottom:10px}
@@ -61,14 +81,34 @@
   .bottom{text-align:center;margin-top:52px;padding-top:32px;border-top:1px solid rgba(79,143,117,.15)}
   .bottom p{font-family:Arial,sans-serif;font-size:12px;color:var(--sage);opacity:.6;line-height:1.65;margin-bottom:12px}
   .bottom .sig{font-family:Arial,sans-serif;font-size:10px;letter-spacing:.25em;color:var(--eucalyptus);text-transform:uppercase;font-weight:700;opacity:.75}
-  @media(max-width:480px){.categories{grid-template-columns:repeat(2,1fr)}.output-body{padding:24px 20px}.output-actions{flex-wrap:wrap}}
+  @media(max-width:480px){.categories{grid-template-columns:repeat(2,1fr)}.output-body{padding:24px 20px}.gate-card{padding:36px 24px}}
 </style>
 </head>
 <body>
+
+<!-- GATE -->
+<div class="gate" id="gate">
+  <div class="gate-card">
+    <p class="gate-handle">@theonechrist</p>
+    <h1 class="gate-title">Courts of Heaven</h1>
+    <p style="font-family:Arial,sans-serif;font-size:13px;color:var(--eucalyptus);font-style:italic;margin-bottom:20px">Prophetic Decree Generator</p>
+    <div class="gate-rule"></div>
+    <p class="gate-sub">Enter your access code to file your decree.</p>
+    <label class="gate-label">Access Code</label>
+    <input class="gate-input" id="pwInput" type="password" placeholder="enter code" autocomplete="off" autocapitalize="none" autocorrect="off" onkeydown="if(event.key==='Enter')checkPW()"/>
+    <div class="gate-err" id="gateErr"></div>
+    <button class="gate-btn" onclick="checkPW()">Enter the Courts</button>
+    <p class="gate-footer">Subscriber access only.<br>Not a subscriber yet? <a class="gate-link" href="https://stan.store/CHRISTCITIZENx" target="_blank">Get access here →</a></p>
+  </div>
+</div>
+
+<!-- PARTICLES -->
 <script>
 for(let i=0;i<12;i++){const p=document.createElement('div');p.className='particle';p.style.cssText=`left:${5+i*8}%;top:${10+(i%5)*18}%;animation:float ${3+i*.2}s ease-in-out infinite;animation-delay:${i*.3}s`;document.body.appendChild(p)}
 </script>
-<div class="wrap">
+
+<!-- APP -->
+<div class="wrap" id="app" style="display:none">
   <p class="handle">@theonechrist · onepropheticdecree.substack.com</p>
   <h1>Courts of Heaven</h1>
   <h2>Prophetic Decree Generator</h2>
@@ -85,7 +125,6 @@ for(let i=0;i<12;i++){const p=document.createElement('div');p.className='particl
       <div class="counter-pill">🔥 Decrees filed today: <span class="counter-num" id="countNum">0</span></div>
       <button class="reset-btn" onclick="resetCount()">Reset</button>
     </div>
-
     <p class="cat-label">Choose the Legal Matter</p>
     <div class="categories">
       <button class="cat-btn" data-key="generational" onclick="selectCat(this)"><span class="cat-icon">🩸</span>Generational Bondage</button>
@@ -101,9 +140,7 @@ for(let i=0;i<12;i++){const p=document.createElement('div');p.className='particl
       <button class="cat-btn" data-key="purpose" onclick="selectCat(this)"><span class="cat-icon">📜</span>Purpose &amp; Assignment</button>
       <button class="cat-btn" data-key="restoration" onclick="selectCat(this)"><span class="cat-icon">✨</span>Restoration &amp; Return</button>
     </div>
-
     <button class="file-btn" id="fileBtn" disabled onclick="fileDecree()">Select a Legal Matter to File</button>
-
     <div class="output" id="output">
       <div class="output-bar">
         <span class="output-label">Covenant Decree · Filed</span>
@@ -123,8 +160,34 @@ for(let i=0;i<12;i++){const p=document.createElement('div');p.className='particl
 </div>
 
 <script>
+const PW='filed0426';
 const JSON_URL='https://raw.githubusercontent.com/noah28-prog/decree-bank/main/decrees-v2.json';
 let BANK={},selectedKey=null,currentText='',used={};
+
+function checkPW(){
+  const val=document.getElementById('pwInput').value.trim().toLowerCase();
+  const err=document.getElementById('gateErr');
+  const input=document.getElementById('pwInput');
+  if(val===PW){
+    sessionStorage.setItem('coh_access','1');
+    document.getElementById('gate').style.display='none';
+    document.getElementById('app').style.display='block';
+    loadBank();
+  } else {
+    err.textContent='Incorrect code. Check your subscriber confirmation.';
+    input.classList.add('error');
+    setTimeout(()=>input.classList.remove('error'),500);
+    input.value='';
+  }
+}
+
+function init(){
+  if(sessionStorage.getItem('coh_access')==='1'){
+    document.getElementById('gate').style.display='none';
+    document.getElementById('app').style.display='block';
+    loadBank();
+  }
+}
 
 async function loadBank(){
   try{
@@ -179,7 +242,7 @@ function getDecree(key){
 function fileDecree(){
   if(!selectedKey)return;
   const d=getDecree(selectedKey);
-  if(!d){alert('More decrees coming soon. Check back after the next vault update.');return;}
+  if(!d){alert('More decrees coming soon.');return;}
   currentText=['LEGAL POSITION\n'+d.position,'\nSCRIPTURE ANCHOR\n'+d.scripture,'\nTHE DECREE\n'+d.decree,'\nTHE VERDICT\n'+d.verdict,'\nThe filing does not expire. The verdict stands. The blood does not lose its legal power.','@theonechrist | onepropheticdecree.substack.com'].join('\n');
   document.getElementById('outputBody').innerHTML=`
     <div class="section"><div class="sec-label">Legal Position</div><div class="sec-text">${d.position}</div></div>
@@ -203,7 +266,7 @@ function copyDecree(){
     setTimeout(()=>btn.textContent='Copy',2000);
   });
 }
-loadBank();
+init();
 </script>
 </body>
 </html>
