@@ -13,10 +13,10 @@
   @keyframes breathe{0%,100%{box-shadow:0 0 0 0 rgba(79,143,117,.4)}50%{box-shadow:0 0 0 14px rgba(79,143,117,0)}}
   @keyframes reveal{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
   @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
+  @keyframes countUp{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}
   .particle{position:fixed;width:2px;height:2px;border-radius:50%;background:radial-gradient(circle,var(--gold),var(--eucalyptus));pointer-events:none;z-index:0}
-  .wrap{max-width:680px;margin:0 auto;padding:60px 22px 100px;position:relative;z-index:1;animation:fadeUp .9s ease forwards}
+  .wrap{max-width:700px;margin:0 auto;padding:60px 22px 100px;position:relative;z-index:1;animation:fadeUp .9s ease forwards}
 
-  /* HEADER */
   .handle{font-family:Arial,sans-serif;font-size:9px;letter-spacing:.4em;color:var(--eucalyptus);text-transform:uppercase;font-weight:700;text-align:center;margin-bottom:24px}
   h1{font-size:clamp(34px,6vw,54px);color:var(--pale);font-weight:700;line-height:1.05;letter-spacing:-.02em;text-align:center;margin-bottom:10px}
   h2{font-size:clamp(15px,3vw,21px);color:var(--eucalyptus);font-weight:400;font-style:italic;letter-spacing:.07em;text-align:center;margin-bottom:20px}
@@ -24,46 +24,67 @@
   .sub{font-family:Arial,sans-serif;font-size:14px;color:var(--sage);line-height:1.7;text-align:center;max-width:440px;margin:0 auto 16px}
   .free-badge{display:inline-block;background:rgba(79,143,117,.15);border:1px solid rgba(79,143,117,.4);border-radius:20px;padding:6px 18px;font-family:Arial,sans-serif;font-size:10px;letter-spacing:.2em;color:var(--eucalyptus);text-transform:uppercase;font-weight:700;margin-bottom:44px}
 
-  /* TESTIMONIALS */
   .testimonials{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:48px}
   .testi{background:var(--moss);border:1px solid rgba(79,143,117,.15);border-radius:12px;padding:18px 16px}
   .testi-text{font-family:Arial,sans-serif;font-size:12px;color:var(--sage);line-height:1.65;margin-bottom:10px;font-style:italic}
   .testi-name{font-family:Arial,sans-serif;font-size:10px;color:var(--eucalyptus);font-weight:700;letter-spacing:.1em}
 
-  /* DECREE CARDS */
-  .section-label{font-family:Arial,sans-serif;font-size:9px;letter-spacing:.35em;color:var(--eucalyptus);text-transform:uppercase;font-weight:700;margin-bottom:20px;text-align:center}
-  .decree-card{background:var(--pale);border-radius:14px;overflow:hidden;border:1px solid rgba(79,143,117,.18);margin-bottom:20px;animation:reveal .5s ease forwards}
-  .card-header{background:var(--forest);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--eucalyptus)}
-  .card-category{font-family:Arial,sans-serif;font-size:9px;letter-spacing:.3em;color:var(--pale);text-transform:uppercase;font-weight:700}
-  .card-icon{font-size:16px}
-  .card-body{padding:28px 28px}
+  /* INTERACTIVE TOOL */
+  .tool-wrap{background:var(--moss);border:1px solid rgba(79,143,117,.2);border-radius:16px;padding:32px 28px;margin-bottom:48px}
+  .tool-intro{font-family:Arial,sans-serif;font-size:11px;letter-spacing:.2em;color:var(--eucalyptus);text-transform:uppercase;font-weight:700;text-align:center;margin-bottom:8px}
+  .tool-intro-sub{font-family:Arial,sans-serif;font-size:13px;color:var(--sage);text-align:center;line-height:1.6;margin-bottom:28px}
+  .counter-bar{display:flex;justify-content:center;align-items:center;gap:14px;margin-bottom:28px}
+  .counter-pill{background:var(--forest);border:1px solid rgba(79,143,117,.2);border-radius:30px;padding:8px 20px;font-family:Arial,sans-serif;font-size:12px;color:var(--sage);display:flex;align-items:center;gap:8px}
+  .counter-num{color:var(--eucalyptus);font-weight:700;font-size:16px}
+  .cat-label{font-family:Arial,sans-serif;font-size:9px;letter-spacing:.35em;color:var(--eucalyptus);text-transform:uppercase;font-weight:700;margin-bottom:14px}
+  .categories{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:9px;margin-bottom:22px}
+  .cat-btn{background:var(--forest);border:1px solid rgba(79,143,117,.18);border-radius:10px;padding:13px 10px;font-family:Arial,sans-serif;font-size:11px;color:var(--sage);cursor:pointer;transition:all .2s;text-align:center;line-height:1.3;font-weight:500}
+  .cat-btn:hover{border-color:var(--eucalyptus);color:var(--pale);transform:translateY(-2px)}
+  .cat-btn.active{background:var(--eucalyptus);color:var(--forest);border-color:var(--eucalyptus);font-weight:700;animation:breathe 2.2s infinite}
+  .cat-icon{font-size:17px;display:block;margin-bottom:6px}
+  .file-btn{width:100%;padding:16px;background:var(--eucalyptus);color:var(--forest);border:none;border-radius:10px;font-family:Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .2s;margin-bottom:0;display:flex;align-items:center;justify-content:center;gap:10px}
+  .file-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 10px 32px rgba(79,143,117,.4)}
+  .file-btn:disabled{opacity:.35;cursor:not-allowed}
+  .output{background:var(--pale);border-radius:12px;overflow:hidden;border:1px solid rgba(79,143,117,.18);display:none;margin-top:20px}
+  .output.visible{display:block;animation:reveal .5s ease forwards}
+  .output-bar{background:var(--forest);padding:14px 22px;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--eucalyptus);flex-wrap:wrap;gap:8px}
+  .output-label{font-family:Arial,sans-serif;font-size:9px;letter-spacing:.3em;color:var(--pale);text-transform:uppercase;font-weight:700}
+  .output-actions{display:flex;gap:8px;align-items:center}
+  .copy-btn{background:transparent;border:1px solid var(--eucalyptus);border-radius:6px;color:var(--eucalyptus);font-family:Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:6px 13px;cursor:pointer;transition:all .2s}
+  .copy-btn:hover{background:var(--eucalyptus);color:var(--forest)}
+  .again-btn{background:rgba(79,143,117,.12);border:1px solid rgba(79,143,117,.25);border-radius:6px;color:var(--sage);font-family:Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:6px 13px;cursor:pointer;transition:all .2s}
+  .again-btn:hover{background:rgba(79,143,117,.25);color:var(--pale)}
+  .output-body{padding:28px 26px}
+  .section{margin-bottom:24px}
   .sec-label{font-family:Arial,sans-serif;font-size:8px;letter-spacing:.4em;color:var(--eucalyptus);text-transform:uppercase;font-weight:700;margin-bottom:9px}
-  .sec-text{font-family:Arial,sans-serif;font-size:14px;color:#1a3d2b;line-height:1.8;margin-bottom:22px}
+  .sec-text{font-family:Arial,sans-serif;font-size:14px;color:#1a3d2b;line-height:1.85}
   .sec-text.scripture{font-family:Georgia,serif;font-style:italic;color:#1f4a35}
-  .sec-text.decree{font-size:15px;font-weight:600;color:#0a2518;border-left:3px solid var(--eucalyptus);padding-left:18px;line-height:1.9;margin-bottom:22px}
-  .sec-text.verdict{font-weight:700;color:#0a2518;font-size:14px;margin-bottom:0}
+  .sec-text.decree{font-size:15px;font-weight:600;color:#0a2518;border-left:3px solid var(--eucalyptus);padding-left:18px;line-height:1.9}
+  .sec-text.verdict{font-weight:700;color:#0a2518;font-size:14px}
+  .out-footer{margin-top:28px;padding-top:20px;border-top:1px solid rgba(79,143,117,.2);text-align:center}
+  .footer-tag{font-style:italic;font-size:12px;color:var(--eucalyptus);line-height:1.75;margin-bottom:8px;font-family:Georgia,serif}
+  .footer-handle{font-family:Arial,sans-serif;font-size:9px;letter-spacing:.25em;color:var(--sage);text-transform:uppercase;opacity:.65}
 
-  /* BLUR GATE */
-  .blur-wrap{position:relative;margin-bottom:20px}
-  .blur-card{background:var(--pale);border-radius:14px;overflow:hidden;border:1px solid rgba(79,143,117,.18);filter:blur(6px);pointer-events:none;user-select:none;opacity:.6}
-  .blur-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;z-index:10}
-  .lock-icon{font-size:32px;margin-bottom:12px}
-  .lock-text{font-family:Arial,sans-serif;font-size:13px;color:var(--pale);line-height:1.6;margin-bottom:20px;font-weight:600}
+  /* LOCK OVERLAY */
+  .lock-wrap{position:relative;margin-top:20px}
+  .lock-card{background:var(--pale);border-radius:12px;overflow:hidden;border:1px solid rgba(79,143,117,.18);filter:blur(5px);pointer-events:none;user-select:none;opacity:.5;max-height:200px}
+  .lock-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;z-index:10;background:rgba(10,37,24,.6);border-radius:12px}
+  .lock-icon{font-size:28px;margin-bottom:10px}
+  .lock-text{font-family:Arial,sans-serif;font-size:13px;color:var(--pale);line-height:1.6;font-weight:600}
 
   /* CTA */
-  .cta-block{background:var(--moss);border:1px solid rgba(79,143,117,.25);border-radius:16px;padding:40px 32px;text-align:center;margin-top:48px}
+  .cta-block{background:var(--moss);border:1px solid rgba(79,143,117,.25);border-radius:16px;padding:40px 32px;text-align:center;margin-top:0}
   .cta-eyebrow{font-family:Arial,sans-serif;font-size:9px;letter-spacing:.35em;color:var(--eucalyptus);text-transform:uppercase;font-weight:700;margin-bottom:16px}
-  .cta-title{font-size:clamp(22px,4vw,32px);color:var(--pale);font-weight:700;line-height:1.2;margin-bottom:14px;letter-spacing:-.01em}
-  .cta-sub{font-family:Arial,sans-serif;font-size:13px;color:var(--sage);line-height:1.7;margin-bottom:28px;max-width:360px;margin-left:auto;margin-right:auto}
-  .cta-price{font-family:Arial,sans-serif;font-size:28px;font-weight:700;color:var(--eucalyptus);margin-bottom:6px}
-  .cta-price-note{font-family:Arial,sans-serif;font-size:11px;color:var(--sage);opacity:.7;margin-bottom:28px;letter-spacing:.05em}
-  .cta-btn{display:block;width:100%;max-width:360px;margin:0 auto 14px;padding:17px;background:var(--eucalyptus);color:var(--forest);border:none;border-radius:11px;font-family:Arial,sans-serif;font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:all .2s;animation:pulse 3s infinite}
+  .cta-title{font-size:clamp(22px,4vw,32px);color:var(--pale);font-weight:700;line-height:1.2;margin-bottom:14px;letter-spacing:-.01em;font-style:normal;font-family:Georgia,serif}
+  .cta-price{font-family:Arial,sans-serif;font-size:32px;font-weight:700;color:var(--eucalyptus);margin-bottom:4px}
+  .cta-price-note{font-family:Arial,sans-serif;font-size:11px;color:var(--sage);opacity:.65;margin-bottom:28px;letter-spacing:.05em}
+  .cta-btn{display:block;width:100%;max-width:380px;margin:0 auto 14px;padding:17px;background:var(--eucalyptus);color:var(--forest);border:none;border-radius:11px;font-family:Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:all .2s;animation:pulse 3s infinite}
   .cta-btn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(79,143,117,.45)}
-  .cta-note{font-family:Arial,sans-serif;font-size:11px;color:var(--sage);opacity:.55;line-height:1.6}
-
+  .features{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:28px;text-align:left}
+  .feature{font-family:Arial,sans-serif;font-size:12px;color:var(--sage);line-height:1.5;padding-left:18px;position:relative}
+  .feature::before{content:"✦";position:absolute;left:0;color:var(--eucalyptus);font-size:10px}
   .footer-tag{font-style:italic;font-size:12px;color:var(--eucalyptus);line-height:1.75;margin-top:48px;text-align:center;font-family:Georgia,serif;opacity:.8}
-
-  @media(max-width:480px){.testimonials{grid-template-columns:1fr}.card-body{padding:22px 18px}.cta-block{padding:32px 22px}}
+  @media(max-width:480px){.testimonials{grid-template-columns:1fr}.categories{grid-template-columns:repeat(2,1fr)}.cta-block{padding:28px 18px}.features{grid-template-columns:1fr}.tool-wrap{padding:24px 16px}.output-body{padding:20px 16px}}
 </style>
 </head>
 <body>
@@ -76,10 +97,9 @@ for(let i=0;i<12;i++){const p=document.createElement('div');p.className='particl
   <h1>Courts of Heaven</h1>
   <h2>Prophetic Decree Generator</h2>
   <div class="rule"></div>
-  <p class="sub">5 free decrees below. The full vault — 60 decrees across 12 legal categories, growing weekly — is subscriber access only.</p>
-  <div style="text-align:center"><span class="free-badge">✦ Free Preview — 5 Decrees ✦</span></div>
+  <p class="sub">File a decree below — free. The full vault of 60+ decrees across 14 categories, updated weekly, is subscriber access only.</p>
+  <div style="text-align:center"><span class="free-badge">✦ Free Preview — Try It Now ✦</span></div>
 
-  <!-- TESTIMONIALS -->
   <div class="testimonials">
     <div class="testi">
       <p class="testi-text">"Since praying these decrees for a week, GOD MADE A WAY — my insurance is PAID IN FULL!"</p>
@@ -91,110 +111,245 @@ for(let i=0;i<12;i++){const p=document.createElement('div');p.className='particl
     </div>
   </div>
 
-  <p class="section-label">Your Free Decrees</p>
+  <!-- INTERACTIVE TOOL -->
+  <div class="tool-wrap">
+    <p class="tool-intro">✦ File Your Decree ✦</p>
+    <p class="tool-intro-sub">Select a legal matter and file. This is exactly how the full subscriber vault works — fresh decree every time.</p>
 
-  <!-- DECREE 1 — FINANCIAL -->
-  <div class="decree-card">
-    <div class="card-header">
-      <span class="card-category">Financial Delay</span>
-      <span class="card-icon">⚖️</span>
+    <div class="counter-bar">
+      <div class="counter-pill">🔥 Decrees filed: <span class="counter-num" id="countNum">0</span></div>
     </div>
-    <div class="card-body">
-      <div class="sec-label">Legal Position</div>
-      <div class="sec-text">You stand before the Courts of Heaven as an heir to the Abrahamic blessing — covenant prosperity filed before your birth, enforced by covenant, backed by the blood of Christ.</div>
-      <div class="sec-label">Scripture Anchor</div>
-      <div class="sec-text scripture">"And this same God who takes care of me will supply all your needs from his glorious riches, which have been given to us in Christ Jesus." — Philippians 4:19 NLT</div>
-      <div class="sec-label">The Decree</div>
-      <div class="sec-text decree">I decree and declare by the right hand of the Lord — every spirit of financial delay, every devourer assigned to my increase, every legal filing that has restricted the flow of covenant blessing into my hands is DISSOLVED right now, right now, right now by the blood of Jesus! By the strong arm of the LORD God of Hosts I command every python spirit of financial constriction, every ancestral poverty covenant, every ungodly financial tie — scatter by fire, let the fire fall! The blessing of Abraham is mine by legal right — enforced by covenant, backed by blood. In the name of Yahweh Sabaoth — Catch Fire.</div>
-      <div class="sec-label">The Verdict</div>
-      <div class="sec-text verdict">The financial devourer has no legal standing. Covenant prosperity is the legal position. The blessing flows now.</div>
+
+    <p class="cat-label">Choose the Legal Matter</p>
+    <div class="categories">
+      <button class="cat-btn" data-key="resurrection" onclick="selectCat(this)"><span class="cat-icon">⚡</span>Resurrection Power</button>
+      <button class="cat-btn" data-key="freedom" onclick="selectCat(this)"><span class="cat-icon">🔓</span>Fear, Bitterness &amp; Hopelessness</button>
+      <button class="cat-btn" data-key="healing" onclick="selectCat(this)"><span class="cat-icon">🌿</span>Inner Healing &amp; Mercy</button>
+      <button class="cat-btn" data-key="jurisdiction" onclick="selectCat(this)"><span class="cat-icon">⚖️</span>Jurisdiction &amp; Cancellation</button>
+      <button class="cat-btn" data-key="intercession" onclick="selectCat(this)"><span class="cat-icon">🙌</span>Intercessory &amp; Mercy</button>
+      <button class="cat-btn" data-key="finances" onclick="selectCat(this)"><span class="cat-icon">👑</span>Financial Delay</button>
+      <button class="cat-btn" data-key="generational" onclick="selectCat(this)"><span class="cat-icon">🩸</span>Generational Bondage</button>
+      <button class="cat-btn" data-key="identity" onclick="selectCat(this)"><span class="cat-icon">📜</span>Identity &amp; Calling</button>
+    </div>
+
+    <button class="file-btn" id="fileBtn" disabled onclick="fileDecree()">Select a Legal Matter to File</button>
+
+    <div class="output" id="output">
+      <div class="output-bar">
+        <span class="output-label">Covenant Decree · Filed</span>
+        <div class="output-actions">
+          <button class="again-btn" onclick="fileDecree()">File Again ↻</button>
+          <button class="copy-btn" id="copyBtn" onclick="copyDecree()">Copy</button>
+        </div>
+      </div>
+      <div class="output-body" id="outputBody"></div>
+    </div>
+
+    <div class="lock-wrap" id="lockWrap" style="display:none">
+      <div class="lock-card">
+        <div style="padding:20px;background:var(--pale)">
+          <div style="height:12px;background:#ccc;border-radius:4px;margin-bottom:10px;width:60%"></div>
+          <div style="height:8px;background:#ddd;border-radius:4px;margin-bottom:8px"></div>
+          <div style="height:8px;background:#ddd;border-radius:4px;width:80%"></div>
+        </div>
+      </div>
+      <div class="lock-overlay">
+        <div class="lock-icon">🔒</div>
+        <p class="lock-text">You have used your free filing.<br>Get unlimited access for $9/month.</p>
+      </div>
     </div>
   </div>
 
-  <!-- DECREE 2 — GENERATIONAL -->
-  <div class="decree-card">
-    <div class="card-header">
-      <span class="card-category">Generational Bondage</span>
-      <span class="card-icon">🩸</span>
-    </div>
-    <div class="card-body">
-      <div class="sec-label">Legal Position</div>
-      <div class="sec-text">The generational pattern ends with you. You are the hinge generation — the one through whom heaven has legally chosen to redraw the boundary of your entire family line.</div>
-      <div class="sec-label">Scripture Anchor</div>
-      <div class="sec-text scripture">"But he was pierced for our rebellion, crushed for our sins. He was beaten so we could be whole. He was whipped so we could be healed." — Isaiah 53:5 NLT</div>
-      <div class="sec-label">The Decree</div>
-      <div class="sec-text decree">I announce by the finger of God — I am the hinge generation and the pattern ENDS WITH ME. By the blood of Jesus I present the evidence of the finished work — every generational wound, every inherited cycle of failure, every bloodline verdict spoken over my family name is brought before the Courts of Heaven and OVERTURNED right now, right now, right now! By fire I command every generational spirit to release its hold — scatter by fire, scatter by fire! What my ancestors carried I legally REFUSE and what God has prepared for my generations I legally RECEIVE. The line is redrawn. In the name of Yahweh Sabaoth — Catch Fire.</div>
-      <div class="sec-label">The Verdict</div>
-      <div class="sec-text verdict">The pattern ends here. The hinge generation has filed. The bloodline is legally repositioned by the verdict of the cross.</div>
-    </div>
-  </div>
-
-  <!-- DECREE 3 — IDENTITY -->
-  <div class="decree-card">
-    <div class="card-header">
-      <span class="card-category">Identity &amp; Calling</span>
-      <span class="card-icon">👑</span>
-    </div>
-    <div class="card-body">
-      <div class="sec-label">Legal Position</div>
-      <div class="sec-text">Your identity is not aspirational — it is jurisdictional. You do not grow into being a king-priest. You occupy the position. The Melchizedek order is baseline covenant standing for every blood-purchased believer.</div>
-      <div class="sec-label">Scripture Anchor</div>
-      <div class="sec-text scripture">"But you are not like that, for you are a chosen people. You are royal priests, a holy nation, God's very own possession." — 1 Peter 2:9 NLT</div>
-      <div class="sec-label">The Decree</div>
-      <div class="sec-text decree">I take my position as a royal priest in the Melchizedek order and I LEGISLATE from that standing right now. I do not ask permission to walk in authority — the blood of Christ has already legally conferred it. By the right hand of the Lord I command every spirit that has operated through false humility, religious performance or shame-based identity to release its hold right now, right now, right now — scatter by fire! I occupy the jurisdiction God has assigned. I walk as king AND priest. ALL of my life is ministry territory. In the name of Yahweh Sabaoth — Catch Fire.</div>
-      <div class="sec-label">The Verdict</div>
-      <div class="sec-text verdict">King-priest authority is occupied not earned. The jurisdiction is active. The position is legally enforced by the blood of Christ.</div>
-    </div>
-  </div>
-
-  <!-- DECREE 4 — FEAR -->
-  <div class="decree-card">
-    <div class="card-header">
-      <span class="card-category">Fear &amp; Anxiety</span>
-      <span class="card-icon">🛡️</span>
-    </div>
-    <div class="card-body">
-      <div class="sec-label">Legal Position</div>
-      <div class="sec-text">You stand in the Courts of Heaven not as one overwhelmed but as one covered. Fear is a fraudulent filing and the blood of Christ has legally answered every charge that produced it.</div>
-      <div class="sec-label">Scripture Anchor</div>
-      <div class="sec-text scripture">"For God has not given us a spirit of fear and timidity, but of power, love, and self-discipline." — 2 Timothy 1:7 NLT</div>
-      <div class="sec-label">The Decree</div>
-      <div class="sec-text decree">I decree and declare by the right hand of the Lord — every spirit of fear, torment, dread and anxiety operating in my mind, my body and my spirit is EXPELLED right now, right now, right now by the blood of Jesus! By the whirlwind of the Lord I command every tormenting spirit, every assignment of panic, every legal ground that fear has occupied — scatter by fire, scatter by fire, let the fire fall! PERFECT LOVE has cast out fear as a legal verdict — not a feeling I am waiting for but a judicial ruling already rendered. I stand in power. I stand in love. In the name of Yahweh Sabaoth — Catch Fire.</div>
-      <div class="sec-label">The Verdict</div>
-      <div class="sec-text verdict">Fear has no legal standing. The spirit of power, love and a sound mind is the court's ruling. The verdict holds and cannot be reversed.</div>
-    </div>
-  </div>
-
-  <!-- DECREE 5 — PURPOSE -->
-  <div class="decree-card">
-    <div class="card-header">
-      <span class="card-category">Purpose &amp; Assignment</span>
-      <span class="card-icon">📜</span>
-    </div>
-    <div class="card-body">
-      <div class="sec-label">Legal Position</div>
-      <div class="sec-text">You were not placed in this generation by accident. Your timing is a legal covenant decision made in the courts of heaven. You carry exactly what this generation needs and your assignment is time-sensitive.</div>
-      <div class="sec-label">Scripture Anchor</div>
-      <div class="sec-text scripture">"Yet who knows whether you have come to the kingdom for such a time as this?" — Esther 4:14 NKJV</div>
-      <div class="sec-label">The Decree</div>
-      <div class="sec-text decree">I decree and declare by the strong arm of the Lord — I was placed in this generation BY LEGAL COVENANT DECISION and my assignment is TIME-SENSITIVE right now! By the blood of Jesus I present the evidence: I have come to the kingdom for such a time as this — this is not coincidence, this is legal placement by the courts of heaven. Right now, right now, right now — by the right hand of Yahweh Sabaoth — I command every spirit of delay, every assignment of irrelevance, every voice that says I missed my moment — scatter by fire! My moment is NOW. The assignment is activated. In the name of Yahweh Sabaoth — Catch Fire.</div>
-      <div class="sec-label">The Verdict</div>
-      <div class="sec-text verdict">The timing is a covenant decision. The assignment is time-sensitive and legally activated. You are here for such a time as this.</div>
-    </div>
-  </div>
-
-  <!-- PAYWALL CTA -->
+  <!-- CTA -->
   <div class="cta-block">
-    <p class="cta-eyebrow">✦ Subscriber Access Only ✦</p>
-    <h2 style="font-size:clamp(22px,4vw,32px);color:var(--pale);font-weight:700;line-height:1.2;margin-bottom:14px;letter-spacing:-.01em;font-style:normal">60 Decrees. 12 Categories.<br>Fresh Every Filing.</h2>
-    <p style="font-family:Arial,sans-serif;font-size:13px;color:var(--sage);line-height:1.7;margin-bottom:24px;max-width:360px;margin-left:auto;margin-right:auto">The full vault includes Witchcraft &amp; Assignment, Marriage &amp; Covenant, Health &amp; Body, Marketplace Authority, Children &amp; Seed, Breakthrough &amp; Delay, and Restoration &amp; Return — plus every category above with 5 rotating decrees each. The vault grows every week.</p>
-    <p style="font-family:Arial,sans-serif;font-size:32px;font-weight:700;color:var(--eucalyptus);margin-bottom:4px">$9<span style="font-size:16px;opacity:.7">/month</span></p>
-    <p style="font-family:Arial,sans-serif;font-size:11px;color:var(--sage);opacity:.65;margin-bottom:28px;letter-spacing:.05em">LAUNCH PRICE · CANCEL ANYTIME</p>
+    <p class="cta-eyebrow">✦ Full Subscriber Vault ✦</p>
+    <h2 class="cta-title">60+ Decrees. 14 Categories.<br>Fresh Every Filing. Growing Weekly.</h2>
+    <div class="features">
+      <p class="feature">Generational Bondage</p>
+      <p class="feature">Witchcraft &amp; Assignment</p>
+      <p class="feature">Financial Delay</p>
+      <p class="feature">Marriage &amp; Covenant</p>
+      <p class="feature">Health &amp; Body</p>
+      <p class="feature">Marketplace Authority</p>
+      <p class="feature">Breakthrough &amp; Delay</p>
+      <p class="feature">Children &amp; Seed</p>
+      <p class="feature">Purpose &amp; Assignment</p>
+      <p class="feature">Restoration &amp; Return</p>
+      <p class="feature">Resurrection Power</p>
+      <p class="feature">Jurisdiction &amp; Cancellation</p>
+      <p class="feature">Intercessory &amp; Mercy</p>
+      <p class="feature">Inner Healing</p>
+    </div>
+    <p class="cta-price">$9<span style="font-size:16px;opacity:.7">/month</span></p>
+    <p class="cta-price-note">LAUNCH PRICE · CANCEL ANYTIME · VAULT GROWS WEEKLY</p>
     <a class="cta-btn" href="https://stan.store/onepropheticdecree/p/courts-of-heaven-decree-tool" target="_blank">Get Full Access — File the Decree</a>
     <p style="font-family:Arial,sans-serif;font-size:11px;color:var(--sage);opacity:.5;line-height:1.6;margin-top:14px">Already a subscriber? <a href="https://onepropheticdecree.netlify.app" style="color:var(--eucalyptus);font-weight:600;text-decoration:none">Enter the full vault →</a></p>
   </div>
 
   <p class="footer-tag">The filing does not expire. The verdict stands. The blood does not lose its legal power.<br><span style="font-family:Arial,sans-serif;font-size:9px;letter-spacing:.25em;opacity:.6">@THEONECHRIST</span></p>
 </div>
+
+<script>
+const PREVIEW_BANK = {
+  resurrection: [
+    {
+      position: "You stand in the Courts of Heaven as one covered by the same resurrection power that raised Christ from the dead. Every buried promise, every delayed harvest, every area where death has had the final word is subject to the legal enforcement of resurrection authority.",
+      scripture: "\"Jesus called in a loud voice, 'Lazarus, come out!' The dead man came out, his hands and feet wrapped with strips of linen, and a cloth around his face. Jesus said to them, 'Take off the grave clothes and let him go.'\" — John 11:43-44 ESV",
+      decree: "I decree and declare by the same power that raised Jesus from the dead — I command every buried promise to COME OUT NOW! I announce by the glory of God, the same way Lazarus came out of the grave, my harvest is coming out, my finances are coming out, my children are coming out, my destiny is coming out! I command the resurrection power of Christ to locate every area where death has had the final word — come out, come out, come out! By the Lord God of Hosts, enough is enough! I am coming out of Egypt with a mighty hand and an outstretched arm! I write a new covenant of resurrection authority — never again will I accept death, delay, or defeat as my portion! Let the fire of Heaven consume every tombstone the enemy erected over my future! By the right hand of the Lord, I am walking out of disgrace, poverty, torment, and confusion! Every member of my family trapped in situations that do not look like God — come out right now, right now, right now! In the name of Yahweh Sabaoth — Catch Fire.",
+      verdict: "Resurrection power is the enforced legal standard. Every buried promise must come out. The grave clothes are removed and the promise walks free."
+    },
+    {
+      position: "The resurrection of Christ is not just a historical event — it is a legal verdict over death itself. As a blood-purchased heir you carry the legal right to enforce that verdict over every area of your life where death, delay, and defeat have operated.",
+      scripture: "\"And if the Spirit of him who raised Jesus from the dead is living in you, he who raised Christ from the dead will also give life to your mortal bodies because of his Spirit who lives in you.\" — Romans 8:11 NIV",
+      decree: "I take my position before the Courts of Heaven and I ENFORCE the resurrection verdict over my life right now. By the blood of Jesus I announce that the same Spirit that raised Christ from the dead is living in me — and that Spirit is legally authorised to give life to every dead situation, every buried dream, every area of my life that has been in the grave. Right now, right now, right now — by the outstretched hand of Yahweh Sabaoth — I command resurrection life to flow into my finances, my health, my relationships, my calling, my family! What the enemy sealed in a tomb, God is UNSEALING by fire! Come out! Come out! Come out! In the name of Yahweh Sabaoth — Catch Fire.",
+      verdict: "The resurrection Spirit is active in you. Every dead area is subject to divine life. The tomb is empty and the promise walks out."
+    }
+  ],
+  freedom: [
+    {
+      position: "Fear, bitterness, and hopelessness are fraudulent legal filings operating against your mind and your identity. The blood of Christ has already answered every charge — you are legally free from every mental and emotional chain.",
+      scripture: "\"For God has not given us a spirit of fear, but of power and of love and of a sound mind.\" — 2 Timothy 1:7 KJV",
+      decree: "I decree and declare — I am coming out of fear, bitterness, and hopelessness RIGHT NOW! I announce by the outstretched hand of the Lord, every mental torment, every wrong mindset, every deceptive thought pattern SCATTERS BY FIRE! I command the deliverance power of God to break every chain of anxiety, depression, and despair! By the blood of Jesus, I am free from hatred, free from unforgiveness, free from the weight of disappointment! I write a new covenant of mental and emotional freedom — never again will I be held captive by my emotions or imprisoned by my past! Let the fire of God's presence consume every root of bitterness and every seed of hopelessness! By the resurrection power of Christ, joy is rising, peace is flooding, and hope is overflowing in my spirit! I am not defined by what I have endured — I am defined by the victory Christ has purchased! Catch fire, every spirit of torment and despair! In the name of Yahweh Sabaoth — Catch Fire.",
+      verdict: "Mental and emotional freedom is the legal verdict. Fear, bitterness, and hopelessness have no legal standing. Power, love, and a sound mind are enforced now."
+    },
+    {
+      position: "The spirit of fear entered through a legal access point. The blood of Christ closes every access point and legally evicts every tormenting spirit from the territory of your mind, your emotions, and your identity.",
+      scripture: "\"Such love has no fear, because perfect love expels all fear.\" — 1 John 4:18 NLT",
+      decree: "I stand before the Courts of Heaven and I PROSECUTE every spirit of fear, anxiety, and torment that has filed against my peace. By the blood of Jesus I present the legal evidence — perfect love has already cast out fear as a judicial ruling, not a feeling. Right now, right now, right now — by the right hand of Yahweh Sabaoth — I command every tormenting thought, every anxious assignment, every spirit of hopelessness operating in my mind — scatter by fire, scatter by fire! I occupy the verdict: power, love, and a sound mind. That is my legal standing and I enforce it now. In the name of Yahweh Sabaoth — Catch Fire.",
+      verdict: "Perfect love is the enforced legal standard. Fear is expelled. Power, love, and soundness are the standing verdict over this mind."
+    }
+  ],
+  healing: [
+    {
+      position: "The fragmented places are not abandoned territory — they are the very places the healing oil of God is being legally poured into right now. Because of mercy, the broken heart is not a permanent address.",
+      scripture: "\"He heals the brokenhearted and binds up their wounds.\" — Psalm 147:3 NIV",
+      decree: "Father, by Your mercy — the mercy that never fails, the mercy that meets truth at the place of the wound — I bring before the Courts of Heaven every fragmented realm, every broken gate, every severed connection within the inner man. By the blood of Jesus I present the evidence of Psalm 85:10 — mercy and truth have met together, righteousness and peace have kissed — and I invoke that meeting over every place that has been ripped open. Let the healing oil flow into the fragmented realms right now, right now, right now. Let it move through every gate, across every bridge, through every connection severed by trauma, by covenant-breaking, by unanswered sorrow. By the outstretched hand of Yahweh Sabaoth I announce — what felt like abandonment was the positioning of Your compassion for a return greater than the leaving. The Lord is close to the brokenhearted. Closeness is Your response to crushing. Let restoration oil pour into every fragmented realm. Let mercy and truth meet at every broken gate until what was ripped open is sealed by the hand of the Lord. In the name of Yahweh Sabaoth — Catch Fire.",
+      verdict: "By mercy the broken heart is healed. The fragmented realms are sealed. Mercy and truth have met — righteousness and peace have kissed."
+    },
+    {
+      "position": "Mercy breaks every delayed healing. As a blood-purchased heir you carry the legal right to invoke the mercy of God as a covenant force — not as a request but as an enforced legal reality over every wounded place.",
+      scripture: "\"The Lord is close to the brokenhearted and saves those who are crushed in spirit.\" — Psalm 34:18 NIV",
+      decree: "I decree and declare by the right hand of the Lord — the mercy of God is a LEGAL FORCE and I invoke it over every area of inner wounding right now! By the blood of Jesus I announce that divine closeness is heaven's legal response to crushing — and where there is crushing, the Lord God of Hosts is legally present with healing oil. Right now, right now, right now — by the outstretched hand of Yahweh Sabaoth — I command every wound that has become an identity to release its hold! The broken heart is healed. The crushed spirit is saved. The fragmented realm is made whole. Mercy does not oppose truth — it fulfils it. And truth says: you are healed, you are whole, you are free. In the name of Yahweh Sabaoth — Catch Fire.",
+      verdict: "Mercy is enforced. Divine closeness is heaven's legal response to crushing. The broken heart is healed and the crushed spirit is saved by covenant mandate."
+    }
+  ],
+  jurisdiction: [
+    {
+      position: "You occupy full legal standing before the Courts of Heaven. As a king-priest in the Melchizedek order you have the jurisdictional authority to cancel every negative decree, every dark legal filing, and every adversarial claim operating against your life.",
+      scripture: "\"No weapon formed against you shall prosper, and every tongue which rises against you in judgment you shall condemn.\" — Isaiah 54:17 NKJV",
+      decree: "I take my jurisdictional position before the Courts of Heaven and I CANCEL every negative decree spoken against my name, my bloodline, and my assignment by the blood of Jesus right now! Every tongue that has risen in judgment against me — I condemn it by the authority of the court. Every dark legal filing, every covenantal access attempt, every spiritual contract drawn up in darkness against my destiny — CANCELLED, OVERTURNED, DISSOLVED right now, right now, right now by fire! By the outstretched hand of Yahweh Sabaoth I draw a legal jurisdictional boundary around my life, my family, and my calling — nothing that is not of God crosses this line. No weapon formed against me prospers. That is not a hope — it is a legal verdict enforced by heaven. In the name of Yahweh Sabaoth — Catch Fire.",
+      verdict: "Every negative decree is cancelled. Jurisdictional authority is enforced. No weapon formed against you prospers — the court has ruled."
+    },
+    {
+      position: "Jurisdiction means you have legal authority over a defined territory. Your body, your bloodline, your calling, your marketplace, your family — all of it is your jurisdictional assignment. You have the legal right and responsibility to govern it.",
+      scripture: "\"Behold, I have given you authority to tread on serpents and scorpions, and over all the power of the enemy, and nothing shall hurt you.\" — Luke 10:19 ESV",
+      decree: "I announce by the finger of God — I have been given legal authority over all the power of the enemy and I exercise that authority right now! By the blood of Jesus I step into my full jurisdictional assignment — my body, my bloodline, my household, my marketplace, my calling — and I GOVERN it as a king-priest. I tread on every serpent, every scorpion, every dark assignment that has operated in my territory right now, right now, right now — scatter by fire, scatter by fire! Nothing shall hurt me — that is a legal verdict pronounced by the Lord Jesus Christ himself and I enforce it now from the Courts of Heaven. In the name of Yahweh Sabaoth — Catch Fire.",
+      verdict: "Full jurisdictional authority is granted and enforced. Nothing shall hurt you — that is the legal verdict. The king-priest governs their territory."
+    }
+  ],
+  intercession: [
+    {
+      position: "Mercy breaks delay. As an intercessor standing in the Courts of Heaven you carry the legal authority to invoke the mercy of God as a force that overrides every delaying spirit, redeems every wasted season, and restores what time and the enemy have stolen.",
+      scripture: "\"Because of the LORD's great love we are not consumed, for his compassions never fail. They are new every morning; great is your faithfulness.\" — Lamentations 3:22-23 NIV",
+      decree: "I stand in the Courts of Heaven as an intercessor and I invoke the MERCY OF GOD as a legal force against every spirit of delay right now! By the blood of Jesus I present the evidence — His compassions are new every morning, His faithfulness is great, and His mercy never fails. That mercy is legally powerful enough to redeem every wasted year, restore every delayed promise, and break every chain of prolonged waiting. Right now, right now, right now — by the outstretched hand of Yahweh Sabaoth — I declare that mercy is breaking delay over every area of my life and the lives I stand in intercession for. Time is being redeemed. Destiny is being restored. Come out now, every buried promise — the mercy of God has located you! In the name of Yahweh Sabaoth — Catch Fire.",
+      verdict: "Mercy breaks delay. Time is redeemed. Destiny is restored by the legal force of God's unfailing compassion."
+    },
+    {
+      position: "You stand as an intercessor with full legal standing — not petitioning for mercy but enforcing it as a covenant legal reality. The mercy of God is not passive. It is an active force that breaks bondage, redeems time, and restores what was taken.",
+      scripture: "\"He redeems your life from the pit and crowns you with love and compassion.\" — Psalm 103:4 NIV",
+      decree: "I take my position as a Courts of Heaven intercessor and I file a mercy decree over every life I carry in prayer. By the blood of Jesus I announce that the redemptive mercy of God is actively at work — redeeming lives from the pit, crowning the broken with love and compassion, restoring what delay and darkness have consumed. Right now, right now, right now — by the right hand of Yahweh Sabaoth — I decree mercy over every prodigal, every delayed promise, every family member trapped in situations that do not reflect the character of God. Come out by mercy! Come out by the redemptive power of the blood! The pit has no legal claim on a life covered by covenant. In the name of Yahweh Sabaoth — Catch Fire.",
+      verdict: "Mercy redeems from the pit. Every life covered by intercession is crowned with love and compassion. The redemptive force of mercy is enforced now."
+    }
+  ],
+  finances: [
+    {
+      position: "You stand before the Courts of Heaven as an heir to the Abrahamic blessing — covenant prosperity filed before your birth, enforced by covenant, backed by the blood of Christ.",
+      scripture: "\"And this same God who takes care of me will supply all your needs from his glorious riches, which have been given to us in Christ Jesus.\" — Philippians 4:19 NLT",
+      decree: "I decree and declare by the right hand of the Lord — every spirit of financial delay, every devourer assigned to my increase, every legal filing that has restricted the flow of covenant blessing into my hands is DISSOLVED right now, right now, right now by the blood of Jesus! By the strong arm of the LORD God of Hosts I command every python spirit of financial constriction, every ancestral poverty covenant, every ungodly financial tie — scatter by fire, let the fire fall! The blessing of Abraham is mine by legal right — enforced by covenant, backed by blood. In the name of Yahweh Sabaoth — Catch Fire.",
+      verdict: "The financial devourer has no legal standing. Covenant prosperity is the legal position. The blessing flows now."
+    }
+  ],
+  generational: [
+    {
+      position: "The generational pattern ends with you. You are the hinge generation — the one through whom heaven has legally chosen to redraw the boundary of your entire family line.",
+      scripture: "\"Christ has rescued us from the curse pronounced by the law. When he was hung on the cross, he took upon himself the curse for our wrongdoing.\" — Galatians 3:13 NLT",
+      decree: "I announce by the finger of God — I am the hinge generation and the pattern ENDS WITH ME. By the blood of Jesus every generational wound, every inherited cycle of failure, every bloodline verdict spoken over my family name is brought before the Courts of Heaven and OVERTURNED right now, right now, right now! By fire I command every generational spirit to release its hold — scatter by fire, scatter by fire! What my ancestors carried I legally REFUSE and what God has prepared for my generations I legally RECEIVE. The line is redrawn. In the name of Yahweh Sabaoth — Catch Fire.",
+      verdict: "The pattern ends here. The hinge generation has filed. The bloodline is legally repositioned by the verdict of the cross."
+    }
+  ],
+  identity: [
+    {
+      position: "Your identity is not aspirational — it is jurisdictional. You do not grow into being a king-priest. You occupy the position. The Melchizedek order is baseline covenant standing for every blood-purchased believer.",
+      scripture: "\"But you are not like that, for you are a chosen people. You are royal priests, a holy nation, God's very own possession.\" — 1 Peter 2:9 NLT",
+      decree: "I take my position as a royal priest in the Melchizedek order and I LEGISLATE from that standing right now. I do not ask permission to walk in authority — the blood of Christ has already legally conferred it. By the right hand of the Lord I command every spirit that has operated through false humility, religious performance or shame-based identity — scatter by fire! I occupy the jurisdiction God has assigned. I walk as king AND priest. ALL of my life is ministry territory. In the name of Yahweh Sabaoth — Catch Fire.",
+      verdict: "King-priest authority is occupied not earned. The jurisdiction is active. The position is legally enforced by the blood of Christ."
+    }
+  ]
+};
+
+let selectedKey=null, currentText='', filedCount=0, hasUsedFree=false, used={};
+
+function selectCat(btn){
+  document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  selectedKey=btn.dataset.key;
+  const fb=document.getElementById('fileBtn');
+  fb.disabled=false;
+  fb.textContent='File the Decree';
+  document.getElementById('output').classList.remove('visible');
+  document.getElementById('lockWrap').style.display='none';
+}
+
+function getDecree(key){
+  const pool=PREVIEW_BANK[key]||[];
+  if(!pool.length)return null;
+  if(!used[key])used[key]=[];
+  if(used[key].length>=pool.length)used[key]=[];
+  const avail=pool.map((_,i)=>i).filter(i=>!used[key].includes(i));
+  const pick=avail[Math.floor(Math.random()*avail.length)];
+  used[key].push(pick);
+  return pool[pick];
+}
+
+function fileDecree(){
+  if(!selectedKey)return;
+  if(hasUsedFree && filedCount>=3){
+    document.getElementById('output').classList.remove('visible');
+    document.getElementById('lockWrap').style.display='block';
+    document.getElementById('lockWrap').scrollIntoView({behavior:'smooth',block:'start'});
+    return;
+  }
+  const d=getDecree(selectedKey);
+  if(!d)return;
+  currentText=['LEGAL POSITION\n'+d.position,'\nSCRIPTURE ANCHOR\n'+d.scripture,'\nTHE DECREE\n'+d.decree,'\nTHE VERDICT\n'+d.verdict,'\nThe filing does not expire. The verdict stands. The blood does not lose its legal power.','@theonechrist | onepropheticdecree.substack.com'].join('\n');
+  document.getElementById('outputBody').innerHTML=`
+    <div class="section"><div class="sec-label">Legal Position</div><div class="sec-text">${d.position}</div></div>
+    <div class="section"><div class="sec-label">Scripture Anchor</div><div class="sec-text scripture">${d.scripture}</div></div>
+    <div class="section"><div class="sec-label">The Decree</div><div class="sec-text decree">${d.decree}</div></div>
+    <div class="section"><div class="sec-label">The Verdict</div><div class="sec-text verdict">${d.verdict}</div></div>
+    <div class="out-footer">
+      <p class="footer-tag">The filing does not expire. The verdict stands.<br>The blood does not lose its legal power.</p>
+      <p class="footer-handle">@theonechrist</p>
+    </div>`;
+  document.getElementById('lockWrap').style.display='none';
+  const out=document.getElementById('output');
+  out.classList.add('visible');
+  filedCount++;
+  hasUsedFree=true;
+  const el=document.getElementById('countNum');
+  el.textContent=filedCount;
+  el.style.animation='none';el.offsetHeight;el.style.animation='countUp .3s ease';
+  document.getElementById('copyBtn').textContent='Copy';
+  setTimeout(()=>out.scrollIntoView({behavior:'smooth',block:'start'}),100);
+}
+
+function copyDecree(){
+  navigator.clipboard.writeText(currentText).then(()=>{
+    const btn=document.getElementById('copyBtn');
+    btn.textContent='✓ Copied';
+    setTimeout(()=>btn.textContent='Copy',2000);
+  });
+}
+</script>
 </body>
 </html>
