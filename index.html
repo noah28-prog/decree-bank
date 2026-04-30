@@ -124,6 +124,7 @@ for(let i=0;i<12;i++){const p=document.createElement('div');p.className='particl
 
 <script>
 const JSON_URL='https://raw.githubusercontent.com/noah28-prog/decree-bank/main/decrees-v2.json';
+let BANK={},selectedKey=null,currentText='',used={};
 
 async function loadBank(){
   try{
